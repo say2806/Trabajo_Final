@@ -31,3 +31,20 @@ else: print(f" {item} no está en el inventario de {Self.name}.")
 
 def mostrar_estado(Self):
   print(f" {Self.name}, clase {self.class}, level: {Self.level}, HP: {Self.live}, strength: {Self.strength}, intelligence: {Self.intelligence}")
+
+der class _init_(Self, name, level)
+Self.name = name
+Self.level = level
+Self.life = 50 + ( level * 10)
+self.strength = 5 + (level * 2)
+
+def attack(Self.character):
+  damage = Self.strength + random.randint(0,5)
+  character.life -= damage
+  print(f"{Self.name} ataca a {character.name} causando {damage} de daño.")
+
+def make_character():
+  name = input("ingresa un nombre:")
+  clase = input("Elige tu Clase (Warrior/Mage):")
+  return character (name,class)
+
