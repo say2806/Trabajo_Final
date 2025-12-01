@@ -1,1 +1,95 @@
+import pygame
+import random
+import sys
 
+# Inicializar Pygame
+pygame.init()
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("MinePro RPG")
+font = pygame.font.SysFont("Arial", 24)
+
+# Colores
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = (34, 139, 34)
+GRAY = (100, 100, 100)
+
+# Jugador
+class Jugador:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.hp = 100
+        self.inventario = {"Madera":0, "Hierro":0, "Diamante":0}
+        self.arma = "Mano"
+
+# Mobs
+MOBS_MINA = ["Araña", "Creeper"]
+MOBS_BOSQUE = ["Enderman", "Zombie"]
+
+# Funciones de juego
+def explorar_mina(jugador):
+    r = random.random()
+    if r < 0.1:
+        jugador.inventario["Diamante"] += 1
+        return "¡Encontraste un Diamante!"
+    elif r < 0.5:
+        jugador.inventario["Hierro"] += 1
+        return "Recolectaste Hierro."
+    elif r < 0.85:
+        mob = random.choice(MOBS_MINA)
+        return f"¡Un {mob} apareció en la mina!"
+    else:
+        return "Nada útil en esta exploración."
+
+def explorar_bosque(jugador):
+    jugador.inventario["Madera"] += 1
+    if random.random() < 0.25:
+        mob = random.choice(MOBS_BOSQUE)
+        return f"¡Un {mob} apareció en el bosque!"
+    return "Recolectaste Madera."
+
+# Renderizar texto
+def draw_text(text, x, y, color=WHITE):
+    img = font.render(text, True, color)
+    screen.blit(img, (x, y))
+
+# Loop principal
+def main():
+    jugador = Jugador("Miner")
+    clock = pygame.time.Clock()
+    mensaje = "Bienvenido a MinePro RPG (Pygame)."
+    
+    while True:
+        screen.fill(BLACK)
+        draw_text("MinePro RPG", 320, 20, GREEN)
+        draw_text("Presiona M para explorar Mina", 50, 100)
+        draw_text("Presiona B para explorar Bosque", 50, 140)
+        draw_text("Presiona Q para salir", 50, 180)
+        
+        # Inventario
+        draw_text(f"Inventario: {jugador.inventario}", 50, 250)
+        draw_text(f"HP: {jugador.hp}", 50, 280)
+        draw_text(f"Arma: {jugador.arma}", 50, 310)
+        
+        # Mensaje
+        draw_text(mensaje, 50, 400, GRAY)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    sys.exit()
+                elif event.key == pygame.K_m:
+                    mensaje = explorar_mina(jugador)
+                elif event.key == pygame.K_b:
+                    mensaje = explorar_bosque(jugador)
+        
+        pygame.display.flip()
+        clock.tick(30)
+
+if __name__ == "__main__":
+    main()
