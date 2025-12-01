@@ -61,3 +61,6 @@ def main ():
     accion = input("¿Que quieres hacer? (atacar/usar objeto):").lower()
     if accion == "attack":
       player.attack(enemy)
+elif accion == "use_item"
+ item = input("¿que objeto usarás?:")
+player.use_item
