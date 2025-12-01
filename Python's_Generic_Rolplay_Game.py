@@ -29,10 +29,10 @@ print(f"{Self.name} usa un/a {item} y recupera 20 de HP.")
 else: print(f" {Self.name} no sabe usar {item}.")
 else: print(f" {item} no está en el inventario de {Self.name}.")
 
-def mostrar_estado(Self):
+def show_stats(Self):
   print(f" {Self.name}, clase {self.class}, level: {Self.level}, HP: {Self.live}, strength: {Self.strength}, intelligence: {Self.intelligence}")
 
-der class _init_(Self, name, level)
+def class _init_(Self, name, level)
 Self.name = name
 Self.level = level
 Self.life = 50 + ( level * 10)
@@ -48,3 +48,16 @@ def make_character():
   clase = input("Elige tu Clase (Warrior/Mage):")
   return character (name,class)
 
+def make_enemy(level):
+name_enemy = ["Zombie", "Spider", "warden"]
+name = random.choice(name_enemy)
+return enemy(name,level)
+def main ():
+
+  player = make_character()
+  enemy = make_enemy(player.level)
+  while player.life > 0:
+    player.show_stats()
+    accion = input("¿Que quieres hacer? (atacar/usar objeto):").lower()
+    if accion == "attack":
+      player.attack(enemy)
